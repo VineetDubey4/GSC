@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="phone_grad_cap_logo.png" alt="Connect Logo">
+        </div>
+    </header>
+
+    <main>
+        <div class="search">
+            <input type="text" id="search-input" placeholder="Search for people...">
+            <button onclick="searchProfiles()">Search</button>
+        </div>
+
+        <h2>Recommended Profiles</h2>
+        <section id="recommended-profiles">
+            <!-- Recommended profiles based on personality matching will be loaded here -->
+        </section>
+
+        <h2>All Profiles</h2>
+        <aside id="profile-labels">
+            <!-- Profile labels (Profile 1, Profile 2, ...) will be generated here -->
+        </aside>
+
+        <section id="profile-list">
+            <!-- All profiles will be loaded here -->
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #0077B5;
+    color: white;
+    padding: 1em 0;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+main {
+    padding: 20px;
+}
+
+.search {
+    margin-bottom: 15px;
+    display: flex; /* Align input and button horizontally */
+}
+
+.search input {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    margin-right: 5px;
+    width: 70%; /* Take up most of the space */
+    box-sizing: border-box;
+}
+
+.search button {
+    background-color: #0077B5;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 30%; /* Take up remaining space */
+    box-sizing: border-box;
+}
+
+#recommended-profiles {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent cards from wrapping */
+    padding-bottom: 10px; /* Add some space for the scrollbar */
+    margin-bottom: 20px; /* Add space below the recommended profiles */
+}
+
+#recommended-profiles .profile-card {
+    display: inline-block; /* Make cards display horizontally */
+    width: 200px; /* Adjust width for smaller cards */
+    margin-right: 10px; /* Add spacing between cards */
+}
+
+#profile-labels {
+    width: 150px;
+    margin-right: 20px;
+}
+
+.profile-label {
+    background-color: #ddd;
+    padding: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#profile-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.profile-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.profile-card button {
+    background-color: #0077B5;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+// Mock user data
+const users = [
+    { id: 1, name: "Alice", title: "Software Engineer", image: "https://via.placeholder.com/100", personality: "INTJ" },
+    { id: 2, name: "Bob", title: "Data Scientist", image: "https://via.placeholder.com/100", personality: "ENFP" },
+    { id: 3, name: "Charlie", title: "Project Manager", image: "https://via.placeholder.com/100", personality: "ISTJ" },
+    { id: 4, name: "David", title: "UX Designer", image: "https://via.placeholder.com/100", personality: "ENFP" },
+    { id: 5, name: "Eve", title: "Marketing Specialist", image: "https://via.placeholder.com/100", personality: "INFJ" },
+    { id: 6, name: "Frank", title: "Accountant", image: "https://via.placeholder.com/100", personality: "ENFP" },
+    { id: 7, name: "Grace", title: "Teacher", image: "https://via.placeholder.com/100", personality: "INFJ" }
+];
+
+const profileList = document.getElementById("profile-list");
+const recommendedProfiles = document.getElementById("recommended-profiles");
+const searchInput = document.getElementById("search-input");
+const profileLabels = document.getElementById("profile-labels");
+
+// Mock current user (replace with actual user data)
+const currentUser = {
+    id: 100,
+    personality: "ENFP"
+};
+
+// Function to generate profile cards
+function generateProfileCards(usersArray, targetElement) {
+    targetElement.innerHTML = ""; // Clear existing cards
+
+    usersArray.forEach(user => {
+        const card = document.createElement("div");
+        card.classList.add("profile-card");
+        card.innerHTML = `
+            <img src="${user.image}" alt="${user.name}">
+            <h3>${user.name}</h3>
+            <p>${user.title}</p>
+            <button onclick="connectUser(${user.id})">Connect</button>
+            <button onclick="messageUser(${user.id})">Message</button>
+        `;
+        targetElement.appendChild(card);
+    });
+}
+
+// Function to generate profile labels
+function generateProfileLabels() {
+    profileLabels.innerHTML = "";
+    for (let i = 1; i <= users.length; i++) {
+        const label = document.createElement("div");
+        label.classList.add("profile-label");
+        label.textContent = `Profile ${i}`;
+        label.addEventListener("click", () => displayProfile(i));
+        profileLabels.appendChild(label);
+    }
+}
+
+// Function to display profile based on the label clicked
+function displayProfile(profileNumber) {
+    const index = profileNumber - 1;
+    generateProfileCards([users[index]], profileList);
+}
+
+// Function to handle connect button click
+function connectUser(userId) {
+    alert(`Connecting with user ID ${userId}`);
+}
+
+// Function to handle message button click
+function messageUser(userId) {
+    alert(`Messaging user ID ${userId}`);
+}
+
+// Function to search profiles
+function searchProfiles() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const searchResults = users.filter(user =>
+        user.name.toLowerCase().includes(searchTerm) ||
+        user.title.toLowerCase().includes(searchTerm)
+    );
+    generateProfileCards(searchResults, profileList);
+}
+
+// Function to recommend profiles based on personality
+function recommendProfiles() {
+    const recommended = users.filter(user =>
+        user.personality === currentUser.personality && user.id !== currentUser.id
+    );
+    generateProfileCards(recommended, recommendedProfiles);
+}
+
+// Initial loading
+generateProfileLabels();
+recommendProfiles();
