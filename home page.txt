@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduConnect</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="phone-graduation-cap-logo.png" alt="EduConnect Logo">
+            EduConnect
+        </div>
+    </header>
+
+    <main>
+        <section class="search-and-learning">
+            <h2>Learn Something New Today!</h2>
+            <input type="text" id="search-input" placeholder="Search for topics...">
+            <div class="video-grid">
+                <!-- Example Videos (Replace with Dynamic Content) -->
+                <div class="video-item">
+                    <img src="video-thumbnail-1.jpg" alt="Video 1">
+                    <h3>Video Title 1</h3>
+                </div>
+                <div class="video-item">
+                    <img src="video-thumbnail-2.jpg" alt="Video 2">
+                    <h3>Video Title 2</h3>
+                </div>
+                <!-- Add more video items here -->
+            </div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <button id="home-button">
+            <i class="fas fa-home"></i> Home
+        </button>
+        <button id="chatbot-button">
+            <i class="fas fa-robot"></i> Chat
+        </button>
+        <button id="connections-button">
+            <i class="fas fa-users"></i> Connect
+        </button>
+        <button id="history-button">
+            <i class="fas fa-history"></i> History
+        </button>
+        <button id="profile-button">
+            <i class="fas fa-user-circle"></i> Profile
+        </button>
+    </nav>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+}
+
+/* Header Styles */
+header {
+    background-color: #333;
+    color: white;
+    padding: 1em;
+    display: flex;
+    justify-content: flex-start; /* Align logo to the left */
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+
+/* Main Content Styles */
+main {
+    padding: 2em;
+    flex-grow: 1; /* Allow main to take up remaining vertical space */
+}
+
+.search-and-learning {
+    text-align: center;
+}
+
+#search-input {
+    width: 80%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1em;
+}
+
+.video-item {
+    border: 1px solid #ccc;
+    padding: 0.5em;
+    text-align: left;
+}
+
+.video-item img {
+    width: 100%;
+    height: auto;
+}
+
+/* Bottom Navigation Styles */
+.bottom-nav {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-around; /* Distribute buttons evenly */
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0px -2px 5px rgba(0,0,0,0.2); /* Optional shadow for better visibility */
+}
+
+.bottom-nav button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.bottom-nav button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+/* Footer Styles - Removing this since the nav is at the bottom now. If you still want a footer, adjust the position. */
+/*footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}*/
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const profileButton = document.getElementById('profile-button');
+    const chatbotButton = document.getElementById('chatbot-button');
+    const connectionsButton = document.getElementById('connections-button');
+    const historyButton = document.getElementById('history-button');
+    const homeButton = document.getElementById('home-button');  // New home button
+
+    profileButton.addEventListener('click', function() {
+        // Redirect to profile page
+        window.location.href = 'profile.html';
+    });
+
+    chatbotButton.addEventListener('click', function() {
+        // Redirect to chatbot page
+        window.location.href = 'chatbot.html';
+    });
+
+    connectionsButton.addEventListener('click', function() {
+        // Redirect to connections page
+        window.location.href = 'connect.html';
+    });
+
+    historyButton.addEventListener('click', function() {
+        // Redirect to history page
+        window.location.href = 'history.html';
+    });
+
+    homeButton.addEventListener('click', function() {
+        // Redirect to home page (index.html or whatever your home page is)
+        window.location.href = 'index.html'; // Or "/" if it's the root
+    });
+
+
+    // Add event listener for the search input (example)
+    const searchInput = document.getElementById('search-input');
+
+    searchInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            // Handle the search query
+            const searchQuery = searchInput.value;
+            console.log('Searching for:', searchQuery);
+            // You can redirect to a search results page or update the content on the page
+            // based on the search query.
+        }
+    });
+});
+
+
