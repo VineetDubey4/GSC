@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <img src="phone_graduation.png" alt="Logo">  <!-- Replace with your logo image -->
+        <h1>My Profile</h1>
+    </header>
+
+    <div class="container">
+        <div class="profile-pic-container">
+            <img src="default_profile.png" alt="Profile Picture" class="profile-pic" id="profilePic">
+            <input type="file" id="profilePicUpload" accept="image/*" class="hidden">
+        </div>
+
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName">
+            </div>
+
+            <div class="form-group">
+                <label for="dateOfBirth">Date of Birth:</label>
+                <input type="date" id="dateOfBirth" name="dateOfBirth">
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address">
+            </div>
+
+             <div class="form-group">
+                <label for="pronouns">Pronouns:</label>
+                <select id="pronouns" name="pronouns">
+                    <option value="she/her">She/Her</option>
+                    <option value="he/him">He/Him</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <input type="text" id="gender" name="gender">
+            </div>
+
+            <div class="form-group">
+                <label for="fatherName">Father's Name:</label>
+                <input type="text" id="fatherName" name="fatherName">
+            </div>
+
+            <div class="form-group">
+                <label for="motherName">Mother's Name:</label>
+                <input type="text" id="motherName" name="motherName">
+            </div>
+
+            <div class="form-group">
+                <label for="education">Education:</label>
+                <input type="text" id="education" name="education">
+            </div>
+
+            <div class="form-group">
+                <label for="collegeSchool">College/School Name:</label>
+                <input type="text" id="collegeSchool" name="collegeSchool">
+            </div>
+
+            <div class="form-group">
+                <label for="skills">Skills:</label>
+                <input type="text" id="skills" name="skills">
+            </div>
+
+            <div class="form-group">
+                <label for="about">About (Max 100 words):</label>
+                <textarea id="about" name="about" rows="4" maxlength="100"></textarea>
+            </div>
+
+             <div class="form-group">
+                <label for="resume">Resume:</label>
+                <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
+            </div>
+
+            <button type="button" onclick="saveProfile()">Save</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+header img {
+    height: 50px; /* Adjust logo size as needed */
+    margin-right: 10px;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
+    cursor: pointer;
+}
+
+.profile-pic:hover {
+    border-color: #aaa;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="date"],
+textarea,
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #3e8e41;
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+const profilePic = document.getElementById('profilePic');
+const profilePicUpload = document.getElementById('profilePicUpload');
+const profileForm = document.getElementById('profileForm');
+
+profilePic.addEventListener('click', () => {
+    profilePicUpload.click();
+});
+
+profilePicUpload.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            profilePic.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+function saveProfile() {
+    // Get form data
+    const fullName = document.getElementById('fullName').value;
+    const dateOfBirth = document.getElementById('dateOfBirth').value;
+    const address = document.getElementById('address').value;
+    const pronouns = document.getElementById('pronouns').value;
+    const gender = document.getElementById('gender').value;
+    const fatherName = document.getElementById('fatherName').value;
+    const motherName = document.getElementById('motherName').value;
+    const education = document.getElementById('education').value;
+    const collegeSchool = document.getElementById('collegeSchool').value;
+    const skills = document.getElementById('skills').value;
+    const about = document.getElementById('about').value;
+    const profilePicture = profilePic.src;
+    const resumeFile = document.getElementById('resume').files[0]; // Get the resume file
+
+    // You can store this data in various ways:
+    // 1.  Local Storage (for simple, client-side storage - NOT for resumes!)
+    localStorage.setItem('fullName', fullName);
+    localStorage.setItem('dateOfBirth', dateOfBirth);
+    localStorage.setItem('address', address);
+    localStorage.setItem('pronouns', pronouns);
+    localStorage.setItem('gender', gender);
+    localStorage.setItem('fatherName', fatherName);
+    localStorage.setItem('motherName', motherName);
+    localStorage.setItem('education', education);
+    localStorage.setItem('collegeSchool', collegeSchool);
+    localStorage.setItem('skills', skills);
+    localStorage.setItem('about', about);
+    localStorage.setItem('profilePicture', profilePicture);
+
+    alert('Profile saved!  Resume not actually saved locally.'); //Informative alert
+
+    // **IMPORTANT: You CANNOT reliably store the resume file itself in localStorage.**
+    // localStorage is for small amounts of text-based data.
+
+    // 2.  Send it to a server using AJAX (more robust, but requires backend development):
+    //    (Example commented out)  This is the *only* way to handle file uploads properly.
+
+    /*
+    const formData = new FormData(); // Use FormData to send files
+    formData.append('fullName', fullName);
+    formData.append('dateOfBirth', dateOfBirth);
+    formData.append('address', address);
+    formData.append('pronouns', pronouns);
+    formData.append('gender', gender);
+    formData.append('fatherName', fatherName);
+    formData.append('motherName', motherName);
+    formData.append('education', education);
+    formData.append('collegeSchool', collegeSchool);
+    formData.append('skills', skills);
+    formData.append('about', about);
+    formData.append('profilePicture', profilePicture);
+    formData.append('resume', resumeFile); // Append the resume file
+
+    fetch('/save_profile', {  // Replace '/save_profile' with your actual API endpoint
+        method: 'POST',
+        body: formData // Use FormData in the body
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Profile saved successfully!');
+        } else {
+            alert('Error saving profile.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while saving the profile.');
+    });
+    */
+}
+
+
+//Load Profile Data on page load
+window.onload = function(){
+
+    if(localStorage.getItem('fullName')){
+        document.getElementById('fullName').value = localStorage.getItem('fullName');
+        document.getElementById('dateOfBirth').value = localStorage.getItem('dateOfBirth');
+         document.getElementById('address').value = localStorage.getItem('address');
+        document.getElementById('pronouns').value = localStorage.getItem('pronouns');
+        document.getElementById('gender').value = localStorage.getItem('gender');
+        document.getElementById('fatherName').value = localStorage.getItem('fatherName');
+        document.getElementById('motherName').value = localStorage.getItem('motherName');
+        document.getElementById('education').value = localStorage.getItem('education');
+        document.getElementById('collegeSchool').value = localStorage.getItem('collegeSchool');
+        document.getElementById('skills').value = localStorage.getItem('skills');
+        document.getElementById('about').value = localStorage.getItem('about');
+        document.getElementById('profilePic').src = localStorage.getItem('profilePicture') || "default_profile.png";
+    }
+
+}
